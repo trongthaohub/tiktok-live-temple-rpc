@@ -50,16 +50,19 @@ body.obs-mode .quick-dock {
 .stage-wrapper {
   position: relative;
   height: 96vh;
+  width: calc(96vh * 9 / 16);
   aspect-ratio: 9 / 16;
   border-radius: 22px;
   overflow: hidden;
   border: 2px solid rgba(244, 193, 80, 0.55);
   background: #120403;
   contain: layout paint style;
+  flex-shrink: 0;
 }
 
 body.obs-mode .stage-wrapper {
   height: 100vh;
+  width: calc(100vh * 9 / 16);
   border-radius: 0;
   border: none;
 }

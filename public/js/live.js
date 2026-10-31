@@ -18,11 +18,24 @@
   function fitStage() {
     if (!stageWrapper || !stage9x16) return;
     const rect = stageWrapper.getBoundingClientRect();
-    const scale = rect.width / 1080;
-    stage9x16.style.transform = `scale(${scale})`;
+    let scale = rect.width / 1080;
+    if (!scale || scale <= 0.01) {
+      const isObs = document.body.classList.contains('obs-mode');
+      const h = window.innerHeight * (isObs ? 1.0 : 0.96);
+      scale = (h * (9 / 16)) / 1080;
+    }
+    if (scale > 0.01) {
+      stage9x16.style.transform = `scale(${scale})`;
+    }
   }
   window.addEventListener('resize', fitStage);
+  window.addEventListener('load', fitStage);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) fitStage();
+  });
   fitStage();
+  setTimeout(fitStage, 100);
+  setTimeout(fitStage, 500);
 
   // 2. Khởi tạo Particle Engine & Audio Engine (ZeroTTS Mai Chi)
   const canvas = document.getElementById('templeCanvas');
